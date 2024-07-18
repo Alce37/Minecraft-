@@ -1,0 +1,47 @@
+# Mini Minecraft
+
+# Tamanho do mundo (10x10 neste exemplo)
+world_size = 10
+
+# Criação do mundo (usando uma lista de listas)
+world = [['.' for _ in range(world_size)] for _ in range(world_size)]
+
+# Função para exibir o mundo
+def display_world():
+    for row in world:
+        print(' '.join(row))
+
+# Função para adicionar um bloco no mundo
+def place_block(x, y):
+    if 0 <= x < world_size and 0 <= y < world_size:
+        world[y][x] = '#'
+    else:
+        print("Coordenadas fora dos limites do mundo!")
+
+# Função principal
+def main():
+    while True:
+        display_world()
+        print("\nComandos:")
+        print(" - 'q' para sair")
+        print(" - 'p x y' para colocar um bloco na posição (x, y)")
+        command = input("Digite um comando: ").strip().lower()
+
+        if command == 'q':
+            print("Saindo do jogo.")
+            break
+        elif command.startswith('p'):
+            try:
+                _, x, y = command.split()
+                x = int(x)
+                y = int(y)
+                place_block(x, y)
+            except ValueError:
+                print("Comando inválido! Use 'p x y' onde x e y são números inteiros.")
+            except IndexError:
+                print("Comando inválido! Certifique-se de fornecer coordenadas válidas.")
+        else:
+            print("Comando não reconhecido. Tente novamente.")
+
+if __name__ == "__main__":
+    main()
